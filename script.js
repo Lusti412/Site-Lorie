@@ -1,9 +1,7 @@
 
 let step1Text = "";
 
-/* ---------------------------
-   NAVIGATION ENTRE PAGES
----------------------------- */
+/* ---------------- NAVIGATION ---------------- */
 
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => {
@@ -12,9 +10,7 @@ function showPage(id) {
   document.getElementById(id).classList.add("active");
 }
 
-/* ---------------------------
-   PAGE 1
----------------------------- */
+/* ---------------- PAGE 1 ---------------- */
 
 function goYes() {
   showPage("pageOui");
@@ -24,15 +20,13 @@ function goNo() {
   showPage("pageNon");
 }
 
-/* ---------------------------
-   PAGE NON (BRANCHE NON)
----------------------------- */
+/* ---------------- PAGE NON ---------------- */
 
-function goNonChoice1() {
+function goChoice1() {
   showPage("pageNonChoice1");
 }
 
-function goNonChoice2() {
+function goChoice2() {
   showPage("pageNonChoice2");
 }
 
@@ -40,9 +34,7 @@ function backToNon() {
   showPage("pageNon");
 }
 
-/* ---------------------------
-   PAGE OUI - ÉTAPE 1
----------------------------- */
+/* ---------------- PAGE OUI STEP 1 ---------------- */
 
 function sendStep1() {
   const input = document.getElementById("inputText");
@@ -56,9 +48,7 @@ function sendStep1() {
   showPage("pageOuiStep2");
 }
 
-/* ---------------------------
-   PAGE OUI - ÉTAPE 2
----------------------------- */
+/* ---------------- PAGE OUI STEP 2 ---------------- */
 
 function selectOption(option) {
 
@@ -70,9 +60,7 @@ function selectOption(option) {
   showPage("finalPage");
 }
 
-/* ---------------------------
-   GOOGLE SHEETS
----------------------------- */
+/* ---------------- GOOGLE SHEETS ---------------- */
 
 function sendToSheet(data) {
   fetch(CONFIG.googleScriptURL, {
@@ -81,5 +69,5 @@ function sendToSheet(data) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  }).catch(err => console.log(err));
+  });
 }
