@@ -2,7 +2,7 @@ const CONFIG = {
   googleScriptURL: "https://script.google.com/macros/s/AKfycbwdaJHg6_h6Bw3JcuOj7QSqkcj0w3WJ1Yj_GkISQPryipzs2U2so2LZuMAWVTTUC2Q1/exec",
 
   page1: {
-    image: "hasarddedingue.png",
+    image: "./hasarddedingue.png",
     text: "Est-ce que ton super copain vient te voir lundi soir ?",
     yesText: "Oui",
     noText: "Non"
