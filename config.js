@@ -1,5 +1,5 @@
 const CONFIG = {
-  googleScriptURL: "https://script.google.com/macros/s/AKfycby2tucnPAsED3uev8trZm4Xh47BizQiAZzQ47dowTXEF3Vufk80ZSkM__xwcH_gx_jv/exec",
+  googleScriptURL: "https://script.google.com/macros/s/AKfycbwitXx6j44-Z7NCCjXstJwyNpS_YVlKxKhEjA6gzd9oNIc5Zjyn4K_cAr6cN5MC3uf6/exec",
 
   page1: {
     image: "./hasarddedingue.png",
