@@ -10,30 +10,24 @@ function showPage(id, saveHistory = true) {
 
   if (current && saveHistory) {
     historyStack.push(current.id);
-
-    current.style.opacity = "0";
-    current.style.transform = "translateY(-10px)";
   }
 
-  setTimeout(() => {
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.remove("active");
+    p.style.opacity = "";
+    p.style.transform = "";
+  });
 
-    document.querySelectorAll(".page").forEach(p => {
-      p.classList.remove("active");
-      p.style.opacity = "";
-      p.style.transform = "";
-    });
-
-    document.getElementById(id).classList.add("active");
-
-  }, 150);
+  const next = document.getElementById(id);
+  next.classList.add("active");
 }
 
 /* ---------------- RETOUR ---------------- */
 
 function goBack() {
   if (historyStack.length > 0) {
-    const previous = historyStack.pop();
-    showPage(previous, false);
+    const prev = historyStack.pop();
+    showPage(prev, false);
   }
 }
 
@@ -57,7 +51,7 @@ function goChoice2() {
   showPage("pageNonChoice2");
 }
 
-/* ---------------- PAGE OUI STEP 1 ---------------- */
+/* ---------------- PAGE OUI ---------------- */
 
 function sendStep1() {
   const input = document.getElementById("inputText");
@@ -70,8 +64,6 @@ function sendStep1() {
 
   showPage("pageOuiStep2");
 }
-
-/* ---------------- PAGE OUI STEP 2 ---------------- */
 
 function selectOption(option) {
 
@@ -92,5 +84,5 @@ function sendToSheet(data) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  }).catch(err => console.log(err));
+  }).catch(console.log);
 }
