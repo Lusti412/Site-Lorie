@@ -2,14 +2,14 @@ const CONFIG = {
   googleScriptURL: "https://script.google.com/macros/s/AKfycbwdaJHg6_h6Bw3JcuOj7QSqkcj0w3WJ1Yj_GkISQPryipzs2U2so2LZuMAWVTTUC2Q1/exec",
 
   page1: {
-    image: "hasard de dingue.gif",
+    image: "hasarddedingue.gif",
     text: "Est-ce que ton super copain vient te voir lundi soir ?",
     yesText: "Oui😘",
     noText: "Non😠"
   },
 
   pageNon: {
-    image: "qui elle est celle la.jpeg",
+    image: "quielleestcellela.jpeg",
     text: "Pourquoi ?",
     choice1: "Non, je fais déjà quelque chose",
     choice2: "Non, je veux pas te voir"
@@ -24,7 +24,7 @@ const CONFIG = {
   },
 
   pageOui: {
-    image: "chat rose.gif",
+    image: "chatrose.gif",
     text: "C’est quoi ton type de fleur préféré ?",
     placeholder: "Écris ici...",
     next: "Suivant",
