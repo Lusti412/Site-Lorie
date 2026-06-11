@@ -2,14 +2,14 @@ const CONFIG = {
   googleScriptURL: "TON_URL_GOOGLE_SCRIPT",
 
   page1: {
-    image: "./chat-rose.png",
+    image: "./hasarddedingue.png",
     text: "TON TEXTE PAGE 1",
     yesText: "Oui",
     noText: "Non"
   },
 
   pageNon: {
-    image: "./hasarddedingue.png",
+    image: "quielleestcellela.jpeg",
     text: "TON TEXTE NON",
     choice1: "Choix 1",
     choice2: "Choix 2"
@@ -19,7 +19,7 @@ const CONFIG = {
   pageNonChoice2: { text: "Texte choix 2" },
 
   pageOui: {
-    image: "./qui-elle-est-celle-la.jpeg",
+    image: "chatrose.gif",
     text: "TON TEXTE OUI"
   },
 
