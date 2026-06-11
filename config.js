@@ -3,7 +3,7 @@ const CONFIG = {
 
   page1: {
     image: "hasarddedingue.gif",
-    text: "TON TEXTE PAGE 1 ICI",
+    text: "Est-ce que ton super copain vient te voir lundi soir ?",
     yesText: "Oui",
     noText: "Non"
   },
