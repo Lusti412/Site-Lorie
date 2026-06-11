@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: Arial;
@@ -9,18 +10,26 @@ body {
   min-height: 100vh;
 }
 
+/* PAGES + TRANSITION */
 .page {
   display: none;
   text-align: center;
   width: 100%;
   max-width: 650px;
   padding: 20px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.35s ease;
 }
 
 .page.active {
   display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
+/* IMAGES */
 img {
   width: 340px;
   max-width: 85%;
@@ -28,20 +37,52 @@ img {
   margin-bottom: 20px;
 }
 
+/* TEXTE */
 p {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
+/* BOUTONS GLOBAUX */
 button {
-  padding: 14px 30px;
+  padding: 14px 28px;
   margin: 10px;
   border: none;
-  border-radius: 25px;
+  border-radius: 999px;
+
   font-size: 18px;
+  font-weight: 500;
+
   cursor: pointer;
+
+  background: linear-gradient(135deg, #ffffff, #ffe3ef);
+  color: #333;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+  transition: all 0.25s ease;
 }
 
+button:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* OUI / NON */
+.btn-yes {
+  background: linear-gradient(135deg, #ff7aa2, #ff4d88);
+  color: white;
+}
+
+.btn-no {
+  background: linear-gradient(135deg, #ffffff, #f0f0f0);
+}
+
+/* INPUT */
 input {
   padding: 12px;
   width: 80%;
@@ -50,7 +91,24 @@ input {
   font-size: 16px;
 }
 
-button:hover {
+/* BOUTON RETOUR */
+.back-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  padding: 12px 18px;
+  border-radius: 20px;
+  border: none;
+
+  font-size: 16px;
+
+  background: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.back-btn:hover {
   transform: scale(1.05);
-  transition: 0.2s;
 }
