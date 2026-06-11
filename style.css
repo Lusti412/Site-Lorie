@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: Arial;
@@ -23,7 +24,6 @@ img {
   width: 320px;
   max-width: 90%;
   border-radius: 20px;
-  margin-bottom: 15px;
 }
 
 p {
@@ -35,31 +35,19 @@ input {
   width: 80%;
   border-radius: 10px;
   border: none;
-  font-size: 16px;
 }
 
 button {
   padding: 14px 24px;
   margin: 8px;
-  border: none;
   border-radius: 999px;
-  background: white;
+  border: none;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-button:hover {
-  transform: scale(1.05);
-}
-
-.btn-yes {
-  background: #ff4d88;
-  color: white;
-}
-
-.btn-no {
-  background: #f2f2f2;
-}
+/* OUI / NON */
+.btn-yes { background: #ff4d88; color: white; }
+.btn-no { background: #eee; }
 
 /* choix colonne */
 .choice-container {
@@ -69,15 +57,12 @@ button:hover {
   align-items: center;
 }
 
-/* retour */
+/* 🔙 RETOUR mieux placé */
 .back-btn {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 9999;
-}
-
-/* checkbox style */
-.option {
-  width: 220px;
+  bottom: 80px;
+  right: 40px;
+  z-index: 999;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
