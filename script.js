@@ -128,9 +128,8 @@ function selectOption(option) {
 function sendToSheet(data) {
   fetch(CONFIG.googleScriptURL, {
     method: "POST",
-    mode: "no-cors",
     headers: {
-      "Content-Type": "text/plain;charset=utf-8"
+      "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
   });
