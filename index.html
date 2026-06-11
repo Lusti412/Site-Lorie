@@ -24,20 +24,24 @@
 
   <button onclick="goChoice1()">Choix 1</button>
   <button onclick="goChoice2()">Choix 2</button>
+
+  <button onclick="goBack()">Retour</button>
 </div>
 
-<!-- CHOIX NON 1 -->
+<!-- CHOIX 1 -->
 <div id="pageNonChoice1" class="page">
   <img src="img2.jpg">
   <p>Texte choix 1</p>
-  <button onclick="backToNon()">Revenir</button>
+
+  <button onclick="goBack()">Revenir</button>
 </div>
 
-<!-- CHOIX NON 2 -->
+<!-- CHOIX 2 -->
 <div id="pageNonChoice2" class="page">
   <img src="img2.jpg">
   <p>Texte choix 2</p>
-  <button onclick="backToNon()">Revenir</button>
+
+  <button onclick="goBack()">Revenir</button>
 </div>
 
 <!-- PAGE OUI -->
@@ -47,7 +51,9 @@
 
   <input id="inputText" placeholder="Écris ici...">
   <br><br>
+
   <button onclick="sendStep1()">Suivant</button>
+  <button onclick="goBack()">Retour</button>
 </div>
 
 <!-- STEP 2 -->
@@ -56,6 +62,8 @@
 
   <button onclick="selectOption('Option A')">Option A</button>
   <button onclick="selectOption('Option B')">Option B</button>
+
+  <button onclick="goBack()">Retour</button>
 </div>
 
 <!-- FINAL -->
