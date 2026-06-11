@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Date</title>
+  <title>Site</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,29 +22,26 @@
   <img>
   <p></p>
 
-  <button class="c1" onclick="goChoice1()">Choix 1</button>
-  <button class="c2" onclick="goChoice2()">Choix 2</button>
+  <div class="choice-container">
+    <button class="c1" onclick="goChoice1()"></button>
+    <button class="c2" onclick="goChoice2()"></button>
+  </div>
 
   <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
-<!-- CHOIX 1 -->
+<!-- CHOIX NON -->
 <div id="pageNonChoice1" class="page">
-  <img>
   <p></p>
-
   <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
-<!-- CHOIX 2 -->
 <div id="pageNonChoice2" class="page">
-  <img>
   <p></p>
-
   <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
-<!-- OUI -->
+<!-- PAGE OUI -->
 <div id="pageOui" class="page">
   <img>
   <p></p>
@@ -52,22 +49,26 @@
   <input id="inputText" placeholder="Écris ici...">
 
   <button onclick="sendStep1()">Suivant</button>
+
   <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
-<!-- STEP 2 -->
+<!-- STEP 2 OUI -->
 <div id="pageOuiStep2" class="page">
-  <p>Choisis</p>
 
-  <button onclick="selectOption('A')">Option A</button>
-  <button onclick="selectOption('B')">Option B</button>
+  <p id="step2Text"></p>
+
+  <div class="choice-container">
+    <button id="opt1" onclick="selectOption('A')"></button>
+    <button id="opt2" onclick="selectOption('B')"></button>
+  </div>
 
   <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
 <!-- FINAL -->
 <div id="finalPage" class="page">
-  <p>Merci ❤️</p>
+  <p></p>
 </div>
 
 <script src="config.js"></script>
