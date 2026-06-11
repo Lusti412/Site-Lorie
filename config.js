@@ -2,34 +2,34 @@ const CONFIG = {
   googleScriptURL: "https://script.google.com/macros/s/AKfycbwdaJHg6_h6Bw3JcuOj7QSqkcj0w3WJ1Yj_GkISQPryipzs2U2so2LZuMAWVTTUC2Q1/exec",
 
   page1: {
-    image: "hasarddedingue.gif",
-    text: "Est-ce que ton super copain vient te voir lundi soir ?",
-    yesText: "Oui😘",
-    noText: "Non😠"
+    image: "chat rose.gif",
+    text: "TON TEXTE PAGE 1 ICI",
+    yesText: "Oui",
+    noText: "Non"
   },
 
   pageNon: {
-    image: "quielleestcellela.jpeg",
-    text: "Pourquoi ?",
-    choice1: "Non, je fais déjà quelque chose",
-    choice2: "Non, je veux pas te voir"
+    image: "hasard de dingue.gif",
+    text: "TON TEXTE PAGE NON ICI",
+    choice1: "Choix 1",
+    choice2: "Choix 2"
   },
 
   pageNonChoice1: {
-    text: "Ca peux pas être plus important que de se voir, donc annule ton truc"
+    image: "hasard de dingue.gif",
+    text: "Texte choix 1"
   },
 
   pageNonChoice2: {
-    text: "C’est trop tard, ta signé le contrat donc t’as plus le choix de vouloir me voir ou pas"
+    image: "hasard de dingue.gif",
+    text: "Texte choix 2"
   },
 
   pageOui: {
-    image: "chatrose.gif",
-    text: "C’est quoi ton type de fleur préféré ?",
+    image: "qui elle est celle la.jpeg",
+    text: "TON TEXTE PAGE OUI ICI",
     placeholder: "Écris ici...",
-    next: "Suivant",
-    text: "Est-ce que tu as un vase ?",
-    option1: "Oui",
-    option2: "Non"
+    option1: "Option A",
+    option2: "Option B"
   }
 };
