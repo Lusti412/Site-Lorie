@@ -1,6 +1,7 @@
 
 let historyStack = [];
 let step1Text = "";
+let selectedOption = "";
 
 /* ---------------- NAVIGATION ---------------- */
 
@@ -16,13 +17,13 @@ function showPage(id, saveHistory = true) {
     p.classList.remove("active");
   });
 
-  const next = document.getElementById(id);
-  next.classList.add("active");
+  const page = document.getElementById(id);
+  page.classList.add("active");
 
   renderPage(id);
 }
 
-/* ---------------- RENDER CONTENU ---------------- */
+/* ---------------- RENDER ---------------- */
 
 function renderPage(id) {
 
@@ -34,21 +35,51 @@ function renderPage(id) {
   const img = page.querySelector("img");
   const text = page.querySelector("p");
 
-  if (img) img.src = p.image;
-  if (text) text.innerText = p.text;
+  if (img) {
+    if (p.image) {
+      img.style.display = "block";
+      img.src = p.image;
+    } else {
+      img.style.display = "none";
+    }
+  }
 
+  if (text && p.text) {
+    text.innerText = p.text;
+  }
+
+  /* PAGE 1 */
   if (id === "page1") {
     page.querySelector(".btn-yes").innerText = p.yesText;
     page.querySelector(".btn-no").innerText = p.noText;
   }
 
+  /* PAGE NON */
   if (id === "pageNon") {
     page.querySelector(".c1").innerText = p.choice1;
     page.querySelector(".c2").innerText = p.choice2;
   }
+
+  /* STEP 2 OUI */
+  if (id === "pageOuiStep2") {
+    document.getElementById("step2Text").innerText =
+      CONFIG.pageOuiStep2.text;
+
+    document.getElementById("opt1").innerText =
+      "☐ " + CONFIG.pageOuiStep2.option1;
+
+    document.getElementById("opt2").innerText =
+      "☐ " + CONFIG.pageOuiStep2.option2;
+  }
+
+  /* FINAL */
+  if (id === "finalPage") {
+    page.querySelector("p").innerText =
+      CONFIG.pageOuiStep2.finalText;
+  }
 }
 
-/* ---------------- RETOUR ---------------- */
+/* ---------------- BACK ---------------- */
 
 function goBack() {
   if (historyStack.length > 0) {
@@ -57,7 +88,7 @@ function goBack() {
   }
 }
 
-/* ---------------- ACTIONS ---------------- */
+/* ---------------- PAGE 1 ACTIONS ---------------- */
 
 function goYes() {
   showPage("pageOui");
@@ -78,6 +109,7 @@ function goChoice2() {
 /* ---------------- OUI FLOW ---------------- */
 
 function sendStep1() {
+
   step1Text = document.getElementById("inputText").value;
 
   sendToSheet({
@@ -89,6 +121,8 @@ function sendStep1() {
 }
 
 function selectOption(option) {
+
+  selectedOption = option;
 
   sendToSheet({
     texte: step1Text,
@@ -103,9 +137,7 @@ function selectOption(option) {
 function sendToSheet(data) {
   fetch(CONFIG.googleScriptURL, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
   });
 }
