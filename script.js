@@ -1,9 +1,8 @@
 
 let historyStack = [];
 let step1Text = "";
-let selectedOption = "";
 
-/* ---------------- NAVIGATION ---------------- */
+/* ---------------- NAV ---------------- */
 
 function showPage(id, saveHistory = true) {
 
@@ -13,12 +12,9 @@ function showPage(id, saveHistory = true) {
     historyStack.push(current.id);
   }
 
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
-  });
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
 
-  const page = document.getElementById(id);
-  page.classList.add("active");
+  document.getElementById(id).classList.add("active");
 
   renderPage(id);
 }
@@ -35,6 +31,7 @@ function renderPage(id) {
   const img = page.querySelector("img");
   const text = page.querySelector("p");
 
+  /* IMAGE SAFE */
   if (img) {
     if (p.image) {
       img.style.display = "block";
@@ -44,38 +41,33 @@ function renderPage(id) {
     }
   }
 
+  /* TEXTE */
   if (text && p.text) {
     text.innerText = p.text;
   }
 
   /* PAGE 1 */
   if (id === "page1") {
-    page.querySelector(".btn-yes").innerText = p.yesText;
-    page.querySelector(".btn-no").innerText = p.noText;
+    page.querySelector(".btn-yes").innerText = CONFIG.page1.yesText;
+    page.querySelector(".btn-no").innerText = CONFIG.page1.noText;
   }
 
   /* PAGE NON */
   if (id === "pageNon") {
-    page.querySelector(".c1").innerText = p.choice1;
-    page.querySelector(".c2").innerText = p.choice2;
+    page.querySelector(".c1").innerText = CONFIG.pageNon.choice1;
+    page.querySelector(".c2").innerText = CONFIG.pageNon.choice2;
   }
 
-  /* STEP 2 OUI */
+  /* STEP 2 */
   if (id === "pageOuiStep2") {
-    document.getElementById("step2Text").innerText =
-      CONFIG.pageOuiStep2.text;
-
-    document.getElementById("opt1").innerText =
-      "☐ " + CONFIG.pageOuiStep2.option1;
-
-    document.getElementById("opt2").innerText =
-      "☐ " + CONFIG.pageOuiStep2.option2;
+    document.getElementById("opt1").innerText = CONFIG.pageOuiStep2.option1;
+    document.getElementById("opt2").innerText = CONFIG.pageOuiStep2.option2;
   }
 
-  /* FINAL */
+  /* FINAL (🔴 FIX PRINCIPAL) */
   if (id === "finalPage") {
-    page.querySelector("p").innerText =
-      CONFIG.pageOuiStep2.finalText;
+    document.querySelector("#finalPage p").innerText =
+      CONFIG.finalPage.text;
   }
 }
 
@@ -88,7 +80,7 @@ function goBack() {
   }
 }
 
-/* ---------------- PAGE 1 ACTIONS ---------------- */
+/* ---------------- ACTIONS ---------------- */
 
 function goYes() {
   showPage("pageOui");
@@ -113,8 +105,8 @@ function sendStep1() {
   step1Text = document.getElementById("inputText").value;
 
   sendToSheet({
-    texte: step1Text,
-    choix: "step1"
+    step: "step1",
+    texte: step1Text
   });
 
   showPage("pageOuiStep2");
@@ -122,24 +114,29 @@ function sendStep1() {
 
 function selectOption(option) {
 
-  selectedOption = option;
-
   sendToSheet({
-    texte: step1Text,
-    choix: option
+    step: "step2",
+    choix: option,
+    texte: step1Text
   });
 
   showPage("finalPage");
 }
 
-/* ---------------- SHEETS ---------------- */
+/* ---------------- GOOGLE SHEETS FIX ---------------- */
 
 function sendToSheet(data) {
+
   fetch(CONFIG.googleScriptURL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    mode: "no-cors", // 🔴 IMPORTANT pour Google Apps Script
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify(data)
   });
+
+  console.log("Sent:", data);
 }
 
 /* ---------------- INIT ---------------- */
