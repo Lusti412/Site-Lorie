@@ -1,35 +1,54 @@
-const CONFIG = {
-  googleScriptURL: "https://script.google.com/macros/s/AKfycbwdaJHg6_h6Bw3JcuOj7QSqkcj0w3WJ1Yj_GkISQPryipzs2U2so2LZuMAWVTTUC2Q1/exec",
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Date</title>
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  page1: {
-    image: "img1.jpg",
-    text: "TON TEXTE PAGE 1 ICI",
-    yesText: "Oui",
-    noText: "Non"
-  },
+<body>
 
-  pageNon: {
-    image: "img2.jpg",
-    text: "TON TEXTE PAGE NON ICI",
-    choice1: "Choix 1",
-    choice2: "Choix 2",
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+  <img src="img1.jpg">
+  <p>TON TEXTE PAGE 1</p>
 
-    page1_choice1_text: "Texte choix 1",
-    page1_choice2_text: "Texte choix 2",
-    backText: "Revenir sur mon choix"
-  },
+  <button class="btn-yes" onclick="submitYes()">Oui</button>
+  <button class="btn-no" id="noBtn" onmouseover="moveNo(this)" onclick="submitNo()">Non</button>
+</div>
 
-  pageOui: {
-    image: "img3.jpg",
-    text: "TON TEXTE PAGE OUI ICI",
+<!-- PAGE NON -->
+<div id="pageNon" class="page">
+  <img src="img2.jpg">
+  <p>TON TEXTE PAGE NON</p>
 
-    inputPlaceholder: "Écris ici...",
-    nextText: "Suivant",
+  <button onclick="show('pageNon1')">Choix 1</button>
+  <button onclick="show('pageNon2')">Choix 2</button>
+</div>
 
-    step2_text: "Choisis une option",
-    option1: "Option A",
-    option2: "Option B",
+<!-- PAGE OUI -->
+<div id="pageOui" class="page">
+  <img src="img3.jpg">
+  <p>TON TEXTE PAGE OUI</p>
 
-    finalText: "Texte final ici"
-  }
-};
+  <input id="inputText" placeholder="Écris ici">
+  <button onclick="sendStep1()">Suivant</button>
+</div>
+
+<!-- STEP 2 -->
+<div id="pageOuiStep2" class="page">
+  <p>Choisis une option</p>
+
+  <button onclick="selectOption('A')">Option A</button>
+  <button onclick="selectOption('B')">Option B</button>
+</div>
+
+<!-- FINAL -->
+<div id="finalPage" class="page">
+  <p>Texte final</p>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
