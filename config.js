@@ -13,23 +13,28 @@ const CONFIG = {
     text: "TON TEXTE PAGE NON ICI",
     choice1: "Choix 1",
     choice2: "Choix 2",
+    backText: "Revenir"
+  },
 
-    page1_choice1_text: "Texte choix 1",
-    page1_choice2_text: "Texte choix 2",
-    backText: "Revenir sur mon choix"
+  pageNonChoice1: {
+    image: "img2.jpg",
+    text: "Texte choix 1",
+    backText: "Revenir"
+  },
+
+  pageNonChoice2: {
+    image: "img2.jpg",
+    text: "Texte choix 2",
+    backText: "Revenir"
   },
 
   pageOui: {
     image: "img3.jpg",
     text: "TON TEXTE PAGE OUI ICI",
-
     inputPlaceholder: "Écris ici...",
     nextText: "Suivant",
-
-    step2_text: "Choisis une option",
     option1: "Option A",
     option2: "Option B",
-
-    finalText: "Texte final ici"
+    finalText: "Texte final"
   }
 };
