@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Site</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="page1" class="page active">
+  <img>
+  <p></p>
+  <button class="yes" onclick="yes()"></button>
+  <button class="no" onclick="no()"></button>
+</div>
+
+<div id="pageNon" class="page">
+  <img>
+  <p></p>
+
+  <div class="choice">
+    <button class="c1"></button>
+    <button class="c2"></button>
+  </div>
+</div>
+
+<div id="pageOui" class="page">
+  <img>
+  <p></p>
+
+  <input id="input">
+  <button onclick="sendStep1()">Suivant</button>
+</div>
+
+<div id="step2" class="page">
+  <p id="t2"></p>
+
+  <div class="choice">
+    <button id="o1" onclick="select('A')"></button>
+    <button id="o2" onclick="select('B')"></button>
+  </div>
+
+  <button class="back" onclick="back()">← retour</button>
+</div>
+
+<div id="final" class="page">
+  <p id="finalText"></p>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
