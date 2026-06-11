@@ -1,13 +1,31 @@
 
+let historyStack = [];
 let step1Text = "";
 
 /* ---------------- NAVIGATION ---------------- */
 
-function showPage(id) {
+function showPage(id, saveHistory = true) {
+
+  const current = document.querySelector(".page.active");
+
+  if (current && saveHistory) {
+    historyStack.push(current.id);
+  }
+
   document.querySelectorAll(".page").forEach(p => {
     p.classList.remove("active");
   });
+
   document.getElementById(id).classList.add("active");
+}
+
+/* ---------------- RETOUR ---------------- */
+
+function goBack() {
+  if (historyStack.length > 0) {
+    const previous = historyStack.pop();
+    showPage(previous, false);
+  }
 }
 
 /* ---------------- PAGE 1 ---------------- */
@@ -28,10 +46,6 @@ function goChoice1() {
 
 function goChoice2() {
   showPage("pageNonChoice2");
-}
-
-function backToNon() {
-  showPage("pageNon");
 }
 
 /* ---------------- PAGE OUI STEP 1 ---------------- */
@@ -69,5 +83,5 @@ function sendToSheet(data) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  });
+  }).catch(err => console.log(err));
 }
