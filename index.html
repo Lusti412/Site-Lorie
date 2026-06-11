@@ -10,46 +10,46 @@
 
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
-  <img src="hasarddedingue.gif">
-  <p>Est-ce que ton super copain vient te voir lundi soir ?</p>
+  <img>
+  <p></p>
 
-  <button class="btn-yes" onclick="goYes()">Oui</button>
-  <button class="btn-no" onclick="goNo()">Non</button>
+  <button class="btn-yes" onclick="goYes()"></button>
+  <button class="btn-no" onclick="goNo()"></button>
 </div>
 
 <!-- PAGE NON -->
 <div id="pageNon" class="page">
-  <img src="quielleestcellela.jpeg">
-  <p>Pourquoi ?</p>
+  <img>
+  <p></p>
 
-  <button onclick="goChoice1()">Non, je fais déjà quelque chose</button>
-  <button onclick="goChoice2()">Non, je veux pas te voir</button>
+  <button class="c1" onclick="goChoice1()">Choix 1</button>
+  <button class="c2" onclick="goChoice2()">Choix 2</button>
 
-  <button class="back-btn" onclick="goBack()">← Revenir sur mon choix</button>
+  <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
 <!-- CHOIX 1 -->
 <div id="pageNonChoice1" class="page">
-  <p>Ca peux pas être plus important que de se voir, donc annule ton truc</p>
+  <img>
+  <p></p>
 
-  <button class="back-btn" onclick="goBack()">← Revenir sur mon choix</button>
+  <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
 <!-- CHOIX 2 -->
 <div id="pageNonChoice2" class="page">
-  <img src="img2.jpg">
-  <p>C’est trop tard, ta signé le contrat donc t’as plus le choix de vouloir me voir ou pas</p>
+  <img>
+  <p></p>
 
-  <button class="back-btn" onclick="goBack()">← Revenir sur mon choix</button>
+  <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
-<!-- PAGE OUI -->
+<!-- OUI -->
 <div id="pageOui" class="page">
-  <img src="chatrose.gif">
-  <p>C’est quoi ton type de fleur préféré ?</p>
+  <img>
+  <p></p>
 
   <input id="inputText" placeholder="Écris ici...">
-  <br><br>
 
   <button onclick="sendStep1()">Suivant</button>
   <button class="back-btn" onclick="goBack()">← Retour</button>
@@ -57,17 +57,17 @@
 
 <!-- STEP 2 -->
 <div id="pageOuiStep2" class="page">
-  <p>Est-ce que tu as un vase ?</p>
+  <p>Choisis</p>
 
-  <button onclick="selectOption('Option A')">Oui</button>
-  <button onclick="selectOption('Option B')">Non</button>
+  <button onclick="selectOption('A')">Option A</button>
+  <button onclick="selectOption('B')">Option B</button>
 
   <button class="back-btn" onclick="goBack()">← Retour</button>
 </div>
 
 <!-- FINAL -->
 <div id="finalPage" class="page">
-  <p>Merci et à lundi ❤️</p>
+  <p>Merci ❤️</p>
 </div>
 
 <script src="config.js"></script>
