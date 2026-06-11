@@ -12,19 +12,18 @@ const CONFIG = {
     image: "img2.jpg",
     text: "TON TEXTE PAGE NON ICI",
     choice1: "Choix 1",
-    choice2: "Choix 2",
-    backText: "Revenir"
+    choice2: "Choix 2"
   },
 
   pageNonChoice1: {
     image: "img2.jpg",
-    text: "Texte choix 1",
+    text: "Texte du choix 1",
     backText: "Revenir"
   },
 
   pageNonChoice2: {
     image: "img2.jpg",
-    text: "Texte choix 2",
+    text: "Texte du choix 2",
     backText: "Revenir"
   },
 
