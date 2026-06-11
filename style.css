@@ -2,7 +2,6 @@ body {
   margin: 0;
   font-family: Arial;
   background: #ffd6e7;
-  overflow-x: hidden;
 
   display: flex;
   justify-content: center;
@@ -10,12 +9,11 @@ body {
   min-height: 100vh;
 }
 
-/* chaque page centrée */
 .page {
   display: none;
   text-align: center;
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   padding: 20px;
 }
 
@@ -23,27 +21,36 @@ body {
   display: block;
 }
 
-/* image plus grande */
 img {
-  width: 320px;
-  max-width: 80%;
+  width: 340px;
+  max-width: 85%;
   border-radius: 20px;
   margin-bottom: 20px;
 }
 
-/* texte plus gros */
 p {
-  font-size: 22px;
-  line-height: 1.4;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
-/* boutons plus stylés */
 button {
-  padding: 14px 28px;
+  padding: 14px 30px;
   margin: 10px;
   border: none;
   border-radius: 25px;
-  cursor: pointer;
   font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+input {
+  padding: 12px;
+  width: 80%;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
 }
