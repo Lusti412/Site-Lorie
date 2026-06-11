@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>Date</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -12,8 +13,8 @@
   <img src="img1.jpg">
   <p>TON TEXTE PAGE 1</p>
 
-  <button class="btn-yes" onclick="submitYes()">Oui</button>
-  <button class="btn-no" id="noBtn" onmouseover="moveNo(this)" onclick="submitNo()">Non</button>
+  <button onclick="goYes()">Oui</button>
+  <button onclick="goNo()">Non</button>
 </div>
 
 <!-- PAGE NON -->
@@ -21,8 +22,22 @@
   <img src="img2.jpg">
   <p>TON TEXTE PAGE NON</p>
 
-  <button onclick="show('pageNon1')">Choix 1</button>
-  <button onclick="show('pageNon2')">Choix 2</button>
+  <button onclick="goChoice1()">Choix 1</button>
+  <button onclick="goChoice2()">Choix 2</button>
+</div>
+
+<!-- CHOIX NON 1 -->
+<div id="pageNonChoice1" class="page">
+  <img src="img2.jpg">
+  <p>Texte choix 1</p>
+  <button onclick="backToNon()">Revenir</button>
+</div>
+
+<!-- CHOIX NON 2 -->
+<div id="pageNonChoice2" class="page">
+  <img src="img2.jpg">
+  <p>Texte choix 2</p>
+  <button onclick="backToNon()">Revenir</button>
 </div>
 
 <!-- PAGE OUI -->
@@ -30,7 +45,8 @@
   <img src="img3.jpg">
   <p>TON TEXTE PAGE OUI</p>
 
-  <input id="inputText" placeholder="Écris ici">
+  <input id="inputText" placeholder="Écris ici...">
+  <br><br>
   <button onclick="sendStep1()">Suivant</button>
 </div>
 
@@ -38,13 +54,13 @@
 <div id="pageOuiStep2" class="page">
   <p>Choisis une option</p>
 
-  <button onclick="selectOption('A')">Option A</button>
-  <button onclick="selectOption('B')">Option B</button>
+  <button onclick="selectOption('Option A')">Option A</button>
+  <button onclick="selectOption('Option B')">Option B</button>
 </div>
 
 <!-- FINAL -->
 <div id="finalPage" class="page">
-  <p>Texte final</p>
+  <p>Merci ❤️</p>
 </div>
 
 <script src="config.js"></script>
