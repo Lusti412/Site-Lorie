@@ -2,15 +2,15 @@ const CONFIG = {
   googleScriptURL: "https://script.google.com/macros/s/AKfycbwdaJHg6_h6Bw3JcuOj7QSqkcj0w3WJ1Yj_GkISQPryipzs2U2so2LZuMAWVTTUC2Q1/exec",
 
   page1: {
-    image: "./hasarddedingue.png",
-    text: "Est-ce que ton super copain vient te voir lundi soir ?",
+    image: "./chat-rose.png",
+    text: "TON TEXTE PAGE 1",
     yesText: "Oui",
     noText: "Non"
   },
 
   pageNon: {
-    image: "quielleestcellela.jpeg",
-    text: "TON TEXTE PAGE NON ICI",
+    image: "./hasarddedingue.png",
+    text: "TON TEXTE PAGE NON",
     choice1: "Choix 1",
     choice2: "Choix 2"
   },
@@ -24,10 +24,15 @@ const CONFIG = {
   },
 
   pageOui: {
-    image: "chatrose.gif",
-    text: "TON TEXTE PAGE OUI ICI",
-    placeholder: "Écris ici...",
+    image: "./qui-elle-est-celle-la.jpeg",
+    text: "TON TEXTE OUI",
+    inputPlaceholder: "Écris ici..."
+  },
+
+  pageOuiStep2: {
+    text: "TON TEXTE AVEC CHOIX",
     option1: "Option A",
-    option2: "Option B"
+    option2: "Option B",
+    finalText: "Merci et à lundi ❤️"
   }
 };
