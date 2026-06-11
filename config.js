@@ -2,14 +2,14 @@ const CONFIG = {
   googleScriptURL: "https://script.google.com/macros/s/AKfycbwdaJHg6_h6Bw3JcuOj7QSqkcj0w3WJ1Yj_GkISQPryipzs2U2so2LZuMAWVTTUC2Q1/exec",
 
   page1: {
-    image: "./chat-rose.png",
+    image: "./hasarddedingue.png",
     text: "TON TEXTE PAGE 1",
     yesText: "Oui",
     noText: "Non"
   },
 
   pageNon: {
-    image: "./hasarddedingue.png",
+    image: "quielleestcellela.jpeg",
     text: "TON TEXTE PAGE NON",
     choice1: "Choix 1",
     choice2: "Choix 2"
@@ -24,7 +24,7 @@ const CONFIG = {
   },
 
   pageOui: {
-    image: "./qui-elle-est-celle-la.jpeg",
+    image: "chatrose.gif",
     text: "TON TEXTE OUI",
     inputPlaceholder: "Écris ici..."
   },
