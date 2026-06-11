@@ -14,12 +14,38 @@ function showPage(id, saveHistory = true) {
 
   document.querySelectorAll(".page").forEach(p => {
     p.classList.remove("active");
-    p.style.opacity = "";
-    p.style.transform = "";
   });
 
   const next = document.getElementById(id);
   next.classList.add("active");
+
+  renderPage(id);
+}
+
+/* ---------------- RENDER CONTENU ---------------- */
+
+function renderPage(id) {
+
+  const p = CONFIG[id];
+  if (!p) return;
+
+  const page = document.getElementById(id);
+
+  const img = page.querySelector("img");
+  const text = page.querySelector("p");
+
+  if (img) img.src = p.image;
+  if (text) text.innerText = p.text;
+
+  if (id === "page1") {
+    page.querySelector(".btn-yes").innerText = p.yesText;
+    page.querySelector(".btn-no").innerText = p.noText;
+  }
+
+  if (id === "pageNon") {
+    page.querySelector(".c1").innerText = p.choice1;
+    page.querySelector(".c2").innerText = p.choice2;
+  }
 }
 
 /* ---------------- RETOUR ---------------- */
@@ -31,7 +57,7 @@ function goBack() {
   }
 }
 
-/* ---------------- PAGE 1 ---------------- */
+/* ---------------- ACTIONS ---------------- */
 
 function goYes() {
   showPage("pageOui");
@@ -41,8 +67,6 @@ function goNo() {
   showPage("pageNon");
 }
 
-/* ---------------- PAGE NON ---------------- */
-
 function goChoice1() {
   showPage("pageNonChoice1");
 }
@@ -51,11 +75,10 @@ function goChoice2() {
   showPage("pageNonChoice2");
 }
 
-/* ---------------- PAGE OUI ---------------- */
+/* ---------------- OUI FLOW ---------------- */
 
 function sendStep1() {
-  const input = document.getElementById("inputText");
-  step1Text = input.value;
+  step1Text = document.getElementById("inputText").value;
 
   sendToSheet({
     texte: step1Text,
@@ -75,7 +98,7 @@ function selectOption(option) {
   showPage("finalPage");
 }
 
-/* ---------------- GOOGLE SHEETS ---------------- */
+/* ---------------- SHEETS ---------------- */
 
 function sendToSheet(data) {
   fetch(CONFIG.googleScriptURL, {
@@ -84,5 +107,9 @@ function sendToSheet(data) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(data)
-  }).catch(console.log);
+  });
 }
+
+/* ---------------- INIT ---------------- */
+
+showPage("page1", false);
