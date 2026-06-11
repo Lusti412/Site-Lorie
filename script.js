@@ -126,17 +126,14 @@ function selectOption(option) {
 /* ---------------- GOOGLE SHEETS FIX ---------------- */
 
 function sendToSheet(data) {
-
   fetch(CONFIG.googleScriptURL, {
     method: "POST",
-    mode: "no-cors", // 🔴 IMPORTANT pour Google Apps Script
+    mode: "no-cors",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "text/plain;charset=utf-8"
     },
     body: JSON.stringify(data)
   });
-
-  console.log("Sent:", data);
 }
 
 /* ---------------- INIT ---------------- */
