@@ -10,13 +10,22 @@ function showPage(id, saveHistory = true) {
 
   if (current && saveHistory) {
     historyStack.push(current.id);
+
+    current.style.opacity = "0";
+    current.style.transform = "translateY(-10px)";
   }
 
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
-  });
+  setTimeout(() => {
 
-  document.getElementById(id).classList.add("active");
+    document.querySelectorAll(".page").forEach(p => {
+      p.classList.remove("active");
+      p.style.opacity = "";
+      p.style.transform = "";
+    });
+
+    document.getElementById(id).classList.add("active");
+
+  }, 150);
 }
 
 /* ---------------- RETOUR ---------------- */
