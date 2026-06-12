@@ -196,11 +196,11 @@
   <!-- PAGE 1 -->
   <div class="page active" id="page1">
     <div class="card">
-      <img class="photo" id="p1-photo" src="" alt="" />
-      <p class="texte" id="p1-texte"></p>
+      <img class="photo" src="hasarddedingue.png" alt="" />
+      <p class="texte">Est ce que tu veux passer du temps avec ton super copain lundi soir ?</p>
       <div class="boutons-horizontal">
-        <button class="btn btn-oui" onclick="aller('pageO1')" id="p1-oui"></button>
-        <button class="btn btn-non" onclick="aller('pageN1')" id="p1-non"></button>
+        <button class="btn btn-oui" onclick="aller('pageO1')">Oui 😘</button>
+        <button class="btn btn-non" onclick="aller('pageN1')">Non 😠</button>
       </div>
     </div>
   </div>
@@ -208,11 +208,11 @@
   <!-- PAGE N1 -->
   <div class="page" id="pageN1">
     <div class="card">
-      <img class="photo" id="pN1-photo" src="" alt="" />
-      <p class="texte" id="pN1-texte"></p>
+      <img class="photo" src="quielleestcellela.jpeg" alt="" />
+      <p class="texte">Pourquoi ?</p>
       <div class="boutons-liste">
-        <button class="btn btn-choix" id="pN1-choix1" onclick="aller('pageN1a')"></button>
-        <button class="btn btn-choix" id="pN1-choix2" onclick="aller('pageN1b')"></button>
+        <button class="btn btn-choix" onclick="aller('pageN1a')">Je suis pas dispo, je fais déjà quelque chose</button>
+        <button class="btn btn-choix" onclick="aller('pageN1b')">J'ai pas envie de te voir</button>
       </div>
       <button class="btn btn-retour" onclick="aller('page1')">← Revenir sur mon choix</button>
     </div>
@@ -221,7 +221,7 @@
   <!-- PAGE N1a -->
   <div class="page" id="pageN1a">
     <div class="card">
-      <p class="texte" id="pN1a-texte"></p>
+      <p class="texte">Ton truc de prévu ne peux pas être plus important que de se voir, donc annule ton truc</p>
       <button class="btn btn-retour" onclick="aller('pageN1')">← Revenir sur mon choix</button>
     </div>
   </div>
@@ -229,7 +229,7 @@
   <!-- PAGE N1b -->
   <div class="page" id="pageN1b">
     <div class="card">
-      <p class="texte" id="pN1b-texte"></p>
+      <p class="texte">C'est trop tard, t'as déjà signé le contrat, donc change ta réponse</p>
       <button class="btn btn-retour" onclick="aller('pageN1')">← Revenir sur mon choix</button>
     </div>
   </div>
@@ -237,11 +237,11 @@
   <!-- PAGE O1 -->
   <div class="page" id="pageO1">
     <div class="card">
-      <img class="photo" id="pO1-photo" src="" alt="" />
-      <p class="texte" id="pO1-texte"></p>
+      <img class="photo" src="chatrose.gif" alt="" />
+      <p class="texte">C'est quoi ton type de fleur préféré ?</p>
       <div class="saisie-row">
-        <input class="input-texte" id="pO1-input" type="text" />
-        <button class="btn btn-suivant" id="pO1-suivant" onclick="validerO1()"></button>
+        <input class="input-texte" id="pO1-input" type="text" placeholder="Écris ici…" />
+        <button class="btn btn-suivant" onclick="validerO1()">Suivant →</button>
       </div>
       <button class="btn btn-retour" onclick="aller('page1')">← Revenir sur mon choix</button>
     </div>
@@ -250,10 +250,10 @@
   <!-- PAGE O2 -->
   <div class="page" id="pageO2">
     <div class="card">
-      <p class="texte" id="pO2-texte"></p>
+      <p class="texte">Est ce que tu as un vase ?</p>
       <div class="boutons-horizontal">
-        <button class="btn btn-oui" onclick="validerFin('Oui')" id="pO2-oui"></button>
-        <button class="btn btn-non" onclick="validerFin('Non')" id="pO2-non"></button>
+        <button class="btn btn-oui" onclick="validerFin('Oui')">Oui</button>
+        <button class="btn btn-non" onclick="validerFin('Non')">Non</button>
       </div>
     </div>
   </div>
@@ -261,88 +261,13 @@
   <!-- PAGE FINALE -->
   <div class="page" id="pageFin">
     <div class="card">
-      <p class="texte grand" id="pFin-texte"></p>
+      <p class="texte grand">Merci et à lundi ❤️</p>
     </div>
   </div>
 
   <script>
-    // ============================================
-    // CONFIG - MODIFIE ICI TES TEXTES ET PHOTOS
-    // ============================================
-    const CONFIG = {
-
-      appsScriptURL: "https://script.google.com/macros/s/AKfycbwqBtWkPnLfR6ew0Sh7O_3KEW4Fevh5FWe6O6hURI-3MsnjHuiTxvvCv4Rq_7doQkxt/exec",
-
-      page1: {
-        photo: "hasarddedingue.png",
-        texte: "Ton texte ici pour la page 1. Pose ta question ou écris ce que tu veux.",
-        boutonOui: "Oui",
-        boutonNon: "Non",
-      },
-
-      pageN1: {
-        photo: "quielleestcellela.jpeg",
-        texte: "Ton texte ici pour la page Non. Explique le contexte ou pose une question.",
-        choix1: "Premier choix",
-        choix2: "Deuxième choix",
-      },
-
-      pageN1a: {
-        texte: "Texte de résultat pour le choix 1. Tu peux écrire ce que tu veux ici.",
-      },
-
-      pageN1b: {
-        texte: "Texte de résultat pour le choix 2. Tu peux écrire ce que tu veux ici.",
-      },
-
-      pageO1: {
-        photo: "chatrose.gif",
-        texte: "Ton texte ici pour la page Oui. Demande à l'utilisateur de saisir quelque chose.",
-        placeholder: "Écris ici...",
-        boutonSuivant: "Suivant →",
-      },
-
-      pageO2: {
-        texte: "Dernière question avant la fin. Tu es sûr(e) de ton choix ?",
-        boutonOui: "Oui",
-        boutonNon: "Non",
-      },
-
-      pageFin: {
-        texte: "C'est noté ! Merci pour ta réponse. 💕",
-      },
-    };
-
-    // ============================================
-    // CODE - NE PAS MODIFIER EN DESSOUS
-    // ============================================
     let donnees = { texte: "", choix: "" };
-
-    document.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("p1-photo").src = CONFIG.page1.photo;
-      document.getElementById("p1-texte").textContent = CONFIG.page1.texte;
-      document.getElementById("p1-oui").textContent = CONFIG.page1.boutonOui;
-      document.getElementById("p1-non").textContent = CONFIG.page1.boutonNon;
-
-      document.getElementById("pN1-photo").src = CONFIG.pageN1.photo;
-      document.getElementById("pN1-texte").textContent = CONFIG.pageN1.texte;
-      document.getElementById("pN1-choix1").textContent = CONFIG.pageN1.choix1;
-      document.getElementById("pN1-choix2").textContent = CONFIG.pageN1.choix2;
-
-      document.getElementById("pN1a-texte").textContent = CONFIG.pageN1a.texte;
-      document.getElementById("pN1b-texte").textContent = CONFIG.pageN1b.texte;
-
-      document.getElementById("pO1-photo").src = CONFIG.pageO1.photo;
-      document.getElementById("pO1-texte").textContent = CONFIG.pageO1.texte;
-      document.getElementById("pO1-input").placeholder = CONFIG.pageO1.placeholder;
-      document.getElementById("pO1-suivant").textContent = CONFIG.pageO1.boutonSuivant;
-
-      document.getElementById("pO2-texte").textContent = CONFIG.pageO2.texte;
-      document.getElementById("pO2-oui").textContent = CONFIG.pageO2.boutonOui;
-      document.getElementById("pO2-non").textContent = CONFIG.pageO2.boutonNon;
-
-      document.getElementById("pFin-texte").textContent = CONFIG.pageFin.texte;
-    });
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqBtWkPnLfR6ew0Sh7O_3KEW4Fevh5FWe6O6hURI-3MsnjHuiTxvvCv4Rq_7doQkxt/exec";
 
     function aller(cible) {
       const actuelle = document.querySelector(".page.active");
@@ -370,7 +295,7 @@
     }
 
     function envoyerDonnees() {
-      fetch(CONFIG.appsScriptURL, {
+      fetch(APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },
