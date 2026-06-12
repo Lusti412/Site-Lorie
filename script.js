@@ -1,94 +1,98 @@
+// ===== DONNÉES COLLECTÉES =====
+let donnees = {
+  texte: "",
+  choix: ""
+};
 
-let history = [];
-let savedText = "";
+// ===== INITIALISATION =====
+document.addEventListener("DOMContentLoaded", () => {
+  // Page 1
+  document.getElementById("p1-photo").src   = CONFIG.page1.photo;
+  document.getElementById("p1-texte").textContent = CONFIG.page1.texte;
+  document.querySelector("#page1 .btn-oui").textContent = CONFIG.page1.boutonOui;
+  document.querySelector("#page1 .btn-non").textContent = CONFIG.page1.boutonNon;
 
-/* NAV */
-function show(id) {
+  // Page N1
+  document.getElementById("pN1-photo").src  = CONFIG.pageN1.photo;
+  document.getElementById("pN1-texte").textContent = CONFIG.pageN1.texte;
+  document.getElementById("pN1-choix1").textContent = CONFIG.pageN1.choix1;
+  document.getElementById("pN1-choix2").textContent = CONFIG.pageN1.choix2;
 
-  const current = document.querySelector(".page.active");
-  if (current) history.push(current.id);
+  // Page N1a
+  document.getElementById("pN1a-texte").textContent = CONFIG.pageN1a.texte;
 
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  // Page N1b
+  document.getElementById("pN1b-texte").textContent = CONFIG.pageN1b.texte;
 
-  document.getElementById(id).classList.add("active");
+  // Page O1
+  document.getElementById("pO1-photo").src  = CONFIG.pageO1.photo;
+  document.getElementById("pO1-texte").textContent = CONFIG.pageO1.texte;
+  document.getElementById("pO1-input").placeholder = CONFIG.pageO1.placeholder;
+  document.getElementById("pO1-suivant").textContent = CONFIG.pageO1.boutonSuivant;
 
-  render(id);
+  // Page O2
+  document.getElementById("pO2-texte").textContent = CONFIG.pageO2.texte;
+  document.querySelector("#pageO2 .btn-oui").textContent = CONFIG.pageO2.boutonOui;
+  document.querySelector("#pageO2 .btn-non").textContent = CONFIG.pageO2.boutonNon;
+
+  // Page Fin
+  document.getElementById("pFin-texte").textContent = CONFIG.pageFin.texte;
+});
+
+// ===== NAVIGATION AVEC TRANSITION =====
+function aller(cible) {
+  const pageActuelle = document.querySelector(".page.active");
+  const pageCible = document.getElementById(cible);
+
+  if (!pageCible || pageActuelle === pageCible) return;
+
+  // Sortie de la page actuelle
+  pageActuelle.classList.add("sortie");
+
+  setTimeout(() => {
+    pageActuelle.classList.remove("active", "sortie");
+    pageActuelle.style.display = "none";
+
+    // Entrée de la nouvelle page
+    pageCible.style.display = "flex";
+    // Force reflow pour déclencher la transition
+    void pageCible.offsetWidth;
+    pageCible.classList.add("active");
+  }, 350);
 }
 
-/* RENDER */
-function render(id) {
-
-  const p = CONFIG[id];
-  if (!p) return;
-
-  const page = document.getElementById(id);
-
-  const img = page.querySelector("img");
-  const text = page.querySelector("p");
-
-  if (img && p.image) img.src = p.image;
-  if (text && p.text) text.innerText = p.text;
-
-  if (id === "page1") {
-    page.querySelector(".yes").innerText = CONFIG.page1.yes;
-    page.querySelector(".no").innerText = CONFIG.page1.no;
+// ===== VALIDER PAGE O1 (saisie texte) =====
+function validerO1() {
+  const input = document.getElementById("pO1-input").value.trim();
+  if (!input) {
+    document.getElementById("pO1-input").style.borderColor = "#e8789e";
+    document.getElementById("pO1-input").focus();
+    return;
   }
-
-  if (id === "pageNon") {
-    page.querySelector(".c1").innerText = CONFIG.pageNon.choice1;
-    page.querySelector(".c2").innerText = CONFIG.pageNon.choice2;
-  }
-
-  if (id === "step2") {
-    document.getElementById("t2").innerText = CONFIG.step2.text;
-    document.getElementById("o1").innerText = CONFIG.step2.option1;
-    document.getElementById("o2").innerText = CONFIG.step2.option2;
-  }
-
-  if (id === "final") {
-    document.getElementById("finalText").innerText = CONFIG.step2.final;
-  }
+  donnees.texte = input;
+  aller("pageO2");
 }
 
-/* BACK */
-function back() {
-  const prev = history.pop();
-  if (prev) show(prev);
+// ===== VALIDER PAGE O2 (choix final) + ENVOI SHEETS =====
+function validerFin(choix) {
+  donnees.choix = choix;
+  envoyerDonnees();
+  aller("pageFin");
 }
 
-/* ACTIONS */
-function yes() { show("pageOui"); }
-function no() { show("pageNon"); }
-
-function sendStep1() {
-
-  savedText = document.getElementById("input").value;
-
-  fetch(CONFIG.googleScriptURL, {
+// ===== ENVOI VERS GOOGLE SHEETS =====
+function envoyerDonnees() {
+  fetch(CONFIG.appsScriptURL, {
     method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({
-      step: "step1",
-      texte: savedText,
-      choix: ""
+      texte: donnees.texte,
+      choix: donnees.choix
     })
+  }).catch(err => {
+    console.error("Erreur envoi :", err);
   });
-
-  show("step2");
 }
-
-function select(opt) {
-
-  fetch(CONFIG.googleScriptURL, {
-    method: "POST",
-    body: JSON.stringify({
-      step: "step2",
-      texte: savedText,
-      choix: opt
-    })
-  });
-
-  show("final");
-}
-
-/* START */
-show("page1");
