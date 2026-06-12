@@ -27,26 +27,34 @@
       background-attachment: fixed;
       font-family: 'DM Sans', sans-serif;
       color: var(--texte);
+      overflow-x: hidden;
     }
 
+    /* ===== CANVAS PÉTALES ===== */
+    #petales-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== PAGES ===== */
     .page {
       display: none;
       min-height: 100vh;
       align-items: center;
       justify-content: center;
       padding: 24px 16px;
+      position: relative;
+      z-index: 1;
     }
 
     .page.active {
       display: flex;
-      animation: entree 0.4s ease forwards;
     }
 
-    @keyframes entree {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
+    /* ===== CARD ===== */
     .card {
       background: var(--blanc);
       border-radius: 24px;
@@ -182,6 +190,16 @@
     .input-texte:focus { border-color: var(--rose-fort); box-shadow: 0 0 0 4px rgba(232, 120, 158, 0.15); }
     .input-texte::placeholder { color: var(--texte-soft); opacity: 0.7; }
 
+    /* ===== CANVAS CONFETTIS ===== */
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+
     @media (max-width: 480px) {
       .card { padding: 28px 20px; gap: 22px; }
       .texte { font-size: 1.05rem; }
@@ -192,6 +210,9 @@
   </style>
 </head>
 <body>
+
+  <canvas id="petales-canvas"></canvas>
+  <canvas id="confetti-canvas"></canvas>
 
   <!-- PAGE 1 -->
   <div class="page active" id="page1">
@@ -229,7 +250,7 @@
   <!-- PAGE N1b -->
   <div class="page" id="pageN1b">
     <div class="card">
-      <p class="texte">C'est trop tard, t'as déjà signé le contrat, donc change ta réponse</p>
+      <p class="texte">C'est trop tard, t'as déjà signé le contrat, donc on se voit</p>
       <button class="btn btn-retour" onclick="aller('pageN1')">← Revenir sur mon choix</button>
     </div>
   </div>
@@ -261,22 +282,240 @@
   <!-- PAGE FINALE -->
   <div class="page" id="pageFin">
     <div class="card">
-      <p class="texte grand">Merci et à lundi 💕</p>
+      <p class="texte grand">Merci et à lundi ❤️</p>
     </div>
   </div>
 
   <script>
-    let donnees = { texte: "", choix: "" };
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqBtWkPnLfR6ew0Sh7O_3KEW4Fevh5FWe6O6hURI-3MsnjHuiTxvvCv4Rq_7doQkxt/exec";
+    let donnees = { texte: "", choix: "" };
 
+    // =======================================
+    // PÉTALES DE CERISIER (canvas)
+    // =======================================
+    const canvasPetales = document.getElementById("petales-canvas");
+    const ctxP = canvasPetales.getContext("2d");
+
+    function resizeCanvas() {
+      canvasPetales.width = window.innerWidth;
+      canvasPetales.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    const COULEURS_PETALES = ["#f5b8ce", "#f9d0e0", "#e8789e", "#fce8ef", "#f0a0be"];
+
+    function creerPetale() {
+      // Spawn aléatoire sur le bord haut ou bord gauche
+      const bord = Math.random() < 0.6 ? "haut" : "gauche";
+      let x, y;
+      if (bord === "haut") {
+        x = Math.random() * canvasPetales.width * 1.2 - canvasPetales.width * 0.1;
+        y = -20;
+      } else {
+        x = -20;
+        y = Math.random() * canvasPetales.height * 0.6;
+      }
+
+      const vitesse = Math.random() * 1.2 + 0.5;
+      const angle = Math.PI / 4 + (Math.random() - 0.5) * 0.4; // ~45° avec légère variation
+
+      return {
+        x, y,
+        vx: Math.cos(angle) * vitesse,           // direction droite
+        vy: Math.sin(angle) * vitesse,            // direction bas
+        oscillation: Math.random() * Math.PI * 2, // phase de balancement naturel
+        vitesseOscil: Math.random() * 0.02 + 0.008,
+        amplitudeOscil: Math.random() * 1.2 + 0.4,
+        rotation: Math.random() * Math.PI * 2,
+        vitesseRot: (Math.random() - 0.5) * 0.03,
+        taille: Math.random() * 7 + 5,
+        opacite: Math.random() * 0.5 + 0.3,
+        couleur: COULEURS_PETALES[Math.floor(Math.random() * COULEURS_PETALES.length)]
+      };
+    }
+
+    let petales = [];
+    for (let i = 0; i < 28; i++) {
+      const p = creerPetale();
+      // Positions initiales dispersées sur tout l'écran
+      p.x = Math.random() * canvasPetales.width;
+      p.y = Math.random() * canvasPetales.height;
+      petales.push(p);
+    }
+
+    function dessinerPetale(ctx, p) {
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.globalAlpha = p.opacite;
+      ctx.fillStyle = p.couleur;
+      ctx.beginPath();
+      // Forme pétale ovale légèrement pointue
+      ctx.ellipse(0, 0, p.taille * 0.5, p.taille, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Légère nervure centrale
+      ctx.strokeStyle = "rgba(255,255,255,0.4)";
+      ctx.lineWidth = 0.5;
+      ctx.beginPath();
+      ctx.moveTo(0, -p.taille);
+      ctx.lineTo(0, p.taille);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function animerPetales() {
+      ctxP.clearRect(0, 0, canvasPetales.width, canvasPetales.height);
+
+      petales.forEach(p => {
+        p.oscillation += p.vitesseOscil;
+        // Léger balancement latéral perpendiculaire à la direction principale
+        const balancement = Math.sin(p.oscillation) * p.amplitudeOscil;
+        p.x += p.vx + Math.cos(p.oscillation * 0.7) * 0.3;
+        p.y += p.vy + balancement * 0.15;
+        p.rotation += p.vitesseRot;
+
+        dessinerPetale(ctxP, p);
+
+        // Réinitialiser si sorti de l'écran (bas ou droite)
+        if (p.x > canvasPetales.width + 30 || p.y > canvasPetales.height + 30) {
+          const nouveau = creerPetale();
+          Object.assign(p, nouveau);
+        }
+      });
+
+      requestAnimationFrame(animerPetales);
+    }
+    animerPetales();
+
+    // =======================================
+    // TRANSITIONS ENTRE PAGES
+    // =======================================
     function aller(cible) {
       const actuelle = document.querySelector(".page.active");
       const cibleEl = document.getElementById(cible);
       if (!cibleEl || actuelle === cibleEl) return;
-      actuelle.classList.remove("active");
-      cibleEl.classList.add("active");
+
+      // Fondu sortie
+      actuelle.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+      actuelle.style.opacity = "0";
+      actuelle.style.transform = "translateY(-12px) scale(0.98)";
+
+      setTimeout(() => {
+        actuelle.classList.remove("active");
+        actuelle.style.cssText = "";
+
+        cibleEl.classList.add("active");
+        cibleEl.style.opacity = "0";
+        cibleEl.style.transform = "translateY(16px) scale(0.98)";
+
+        // Force reflow
+        void cibleEl.offsetWidth;
+
+        cibleEl.style.transition = "opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1)";
+        cibleEl.style.opacity = "1";
+        cibleEl.style.transform = "translateY(0) scale(1)";
+
+        setTimeout(() => { cibleEl.style.transition = ""; }, 400);
+
+        if (cible === "pageFin") {
+          setTimeout(lancerConfettis, 300);
+        }
+      }, 280);
     }
 
+    // =======================================
+    // CANON DE CONFETTIS
+    // =======================================
+    const canvasConf = document.getElementById("confetti-canvas");
+    const ctxC = canvasConf.getContext("2d");
+    let particlesConf = [];
+    let animConfId = null;
+
+    const COULEURS_CONF = ["#e8789e","#f5b8ce","#c94e78","#ffd6e8","#ff9bbe","#ffffff","#ffb3d1","#ff6699"];
+    const FORMES = ["rect", "rond", "ruban"];
+
+    function lancerConfettis() {
+      canvasConf.width = window.innerWidth;
+      canvasConf.height = window.innerHeight;
+      canvasConf.style.display = "block";
+      particlesConf = [];
+
+      const originX = canvasConf.width / 2;
+      const originY = canvasConf.height;        // bas du centre
+
+      const nb = 160;
+      for (let i = 0; i < nb; i++) {
+        const angle = -(Math.random() * Math.PI * 0.85 + Math.PI * 0.075); // vers le haut, large éventail
+        const force = Math.random() * 22 + 10;
+        const couleur = COULEURS_CONF[Math.floor(Math.random() * COULEURS_CONF.length)];
+        const forme = FORMES[Math.floor(Math.random() * FORMES.length)];
+        particlesConf.push({
+          x: originX + (Math.random() - 0.5) * 40,
+          y: originY,
+          vx: Math.cos(angle) * force * (Math.random() * 0.6 + 0.7),
+          vy: Math.sin(angle) * force * (Math.random() * 0.6 + 0.7),
+          rotation: Math.random() * 360,
+          vitesseRot: (Math.random() - 0.5) * 12,
+          taille: Math.random() * 8 + 5,
+          couleur,
+          forme,
+          gravite: Math.random() * 0.45 + 0.25,
+          opacite: 1,
+          largeur: Math.random() * 4 + 3,
+        });
+      }
+
+      if (animConfId) cancelAnimationFrame(animConfId);
+      animerConfettis();
+    }
+
+    function animerConfettis() {
+      ctxC.clearRect(0, 0, canvasConf.width, canvasConf.height);
+      let vivants = 0;
+
+      particlesConf.forEach(p => {
+        p.vx *= 0.985;
+        p.vy += p.gravite;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rotation += p.vitesseRot;
+        if (p.y < canvasConf.height + 20) {
+          p.opacite = Math.max(0, p.opacite - 0.008);
+          vivants++;
+        }
+
+        ctxC.save();
+        ctxC.translate(p.x, p.y);
+        ctxC.rotate((p.rotation * Math.PI) / 180);
+        ctxC.globalAlpha = p.opacite;
+        ctxC.fillStyle = p.couleur;
+
+        if (p.forme === "rect") {
+          ctxC.fillRect(-p.taille / 2, -p.largeur / 2, p.taille, p.largeur);
+        } else if (p.forme === "rond") {
+          ctxC.beginPath();
+          ctxC.arc(0, 0, p.largeur, 0, Math.PI * 2);
+          ctxC.fill();
+        } else {
+          // ruban
+          ctxC.beginPath();
+          ctxC.ellipse(0, 0, p.taille * 0.4, p.largeur * 1.4, 0, 0, Math.PI * 2);
+          ctxC.fill();
+        }
+        ctxC.restore();
+      });
+
+      if (vivants > 0) {
+        animConfId = requestAnimationFrame(animerConfettis);
+      } else {
+        canvasConf.style.display = "none";
+      }
+    }
+
+    // =======================================
+    // LOGIQUE SITE
+    // =======================================
     function validerO1() {
       const val = document.getElementById("pO1-input").value.trim();
       if (!val) {
