@@ -4,7 +4,192 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mon Site</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose-pale: #fce8ef;
+      --rose-medium: #f5b8ce;
+      --rose-fort: #e8789e;
+      --rose-dark: #c94e78;
+      --blanc: #fff8fb;
+      --texte: #3a1a28;
+      --texte-soft: #7a4a5e;
+      --ombre: rgba(200, 80, 120, 0.12);
+    }
+
+    html, body {
+      min-height: 100%;
+      background: linear-gradient(135deg, #fce8ef 0%, #fdd6e6 50%, #fce8ef 100%);
+      background-attachment: fixed;
+      font-family: 'DM Sans', sans-serif;
+      color: var(--texte);
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .page.active {
+      display: flex;
+      animation: entree 0.4s ease forwards;
+    }
+
+    @keyframes entree {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      background: var(--blanc);
+      border-radius: 24px;
+      box-shadow: 0 8px 40px var(--ombre), 0 2px 8px rgba(200,80,120,0.07);
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      border: 1.5px solid rgba(245, 184, 206, 0.4);
+    }
+
+    .photo {
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 2px solid var(--rose-medium);
+    }
+
+    .texte {
+      font-size: 1.15rem;
+      line-height: 1.65;
+      text-align: center;
+      color: var(--texte);
+      font-weight: 500;
+    }
+
+    .texte.grand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--rose-dark);
+    }
+
+    .boutons-horizontal {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .boutons-horizontal .btn { flex: 1; max-width: 160px; }
+
+    .boutons-liste {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+    }
+
+    .boutons-liste .btn { width: 100%; }
+
+    .btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 14px;
+      padding: 16px 24px;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-oui {
+      background: linear-gradient(135deg, var(--rose-fort), var(--rose-dark));
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(200, 78, 120, 0.3);
+    }
+    .btn-oui:hover { box-shadow: 0 6px 22px rgba(200, 78, 120, 0.45); transform: translateY(-2px); }
+
+    .btn-non {
+      background: var(--blanc);
+      color: var(--rose-dark);
+      border: 2px solid var(--rose-medium);
+    }
+    .btn-non:hover { background: var(--rose-pale); transform: translateY(-2px); }
+
+    .btn-choix {
+      background: var(--blanc);
+      color: var(--texte);
+      border: 2px solid var(--rose-medium);
+      text-align: left;
+      padding: 18px 24px;
+      border-radius: 14px;
+    }
+    .btn-choix:hover { background: var(--rose-pale); border-color: var(--rose-fort); transform: translateY(-2px); }
+
+    .btn-suivant {
+      background: linear-gradient(135deg, var(--rose-fort), var(--rose-dark));
+      color: #fff;
+      border-radius: 14px;
+      padding: 16px 22px;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(200, 78, 120, 0.3);
+      flex-shrink: 0;
+    }
+    .btn-suivant:hover { box-shadow: 0 6px 22px rgba(200, 78, 120, 0.45); transform: translateY(-2px); }
+
+    .btn-retour {
+      background: transparent;
+      color: var(--texte-soft);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 10px 18px;
+      border-radius: 10px;
+      border: 1.5px dashed var(--rose-medium);
+    }
+    .btn-retour:hover { background: var(--rose-pale); color: var(--rose-dark); }
+
+    .saisie-row {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      align-items: center;
+    }
+
+    .input-texte {
+      flex: 1;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      padding: 16px 18px;
+      border: 2px solid var(--rose-medium);
+      border-radius: 14px;
+      background: var(--rose-pale);
+      color: var(--texte);
+      outline: none;
+    }
+    .input-texte:focus { border-color: var(--rose-fort); box-shadow: 0 0 0 4px rgba(232, 120, 158, 0.15); }
+    .input-texte::placeholder { color: var(--texte-soft); opacity: 0.7; }
+
+    @media (max-width: 480px) {
+      .card { padding: 28px 20px; gap: 22px; }
+      .texte { font-size: 1.05rem; }
+      .texte.grand { font-size: 1.3rem; }
+      .btn { padding: 18px 20px; }
+      .photo { max-height: 200px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -14,13 +199,13 @@
       <img class="photo" id="p1-photo" src="" alt="" />
       <p class="texte" id="p1-texte"></p>
       <div class="boutons-horizontal">
-        <button class="btn btn-oui" onclick="aller('pageO1')">OUI</button>
-        <button class="btn btn-non" onclick="aller('pageN1')">NON</button>
+        <button class="btn btn-oui" onclick="aller('pageO1')" id="p1-oui"></button>
+        <button class="btn btn-non" onclick="aller('pageN1')" id="p1-non"></button>
       </div>
     </div>
   </div>
 
-  <!-- PAGE N1 (chemin Non) -->
+  <!-- PAGE N1 -->
   <div class="page" id="pageN1">
     <div class="card">
       <img class="photo" id="pN1-photo" src="" alt="" />
@@ -49,7 +234,7 @@
     </div>
   </div>
 
-  <!-- PAGE O1 (chemin Oui) -->
+  <!-- PAGE O1 -->
   <div class="page" id="pageO1">
     <div class="card">
       <img class="photo" id="pO1-photo" src="" alt="" />
@@ -67,8 +252,8 @@
     <div class="card">
       <p class="texte" id="pO2-texte"></p>
       <div class="boutons-horizontal">
-        <button class="btn btn-oui" onclick="validerFin('Oui')">OUI</button>
-        <button class="btn btn-non" onclick="validerFin('Non')">NON</button>
+        <button class="btn btn-oui" onclick="validerFin('Oui')" id="pO2-oui"></button>
+        <button class="btn btn-non" onclick="validerFin('Non')" id="pO2-non"></button>
       </div>
     </div>
   </div>
@@ -80,7 +265,118 @@
     </div>
   </div>
 
-  <script src="config.js"></script>
-  <script src="script.js"></script>
+  <script>
+    // ============================================
+    // CONFIG - MODIFIE ICI TES TEXTES ET PHOTOS
+    // ============================================
+    const CONFIG = {
+
+      appsScriptURL: "https://script.google.com/macros/s/AKfycbwqBtWkPnLfR6ew0Sh7O_3KEW4Fevh5FWe6O6hURI-3MsnjHuiTxvvCv4Rq_7doQkxt/exec",
+
+      page1: {
+        photo: "hasarddedingue.png",
+        texte: "Ton texte ici pour la page 1. Pose ta question ou écris ce que tu veux.",
+        boutonOui: "Oui",
+        boutonNon: "Non",
+      },
+
+      pageN1: {
+        photo: "quielleestcellela.jpeg",
+        texte: "Ton texte ici pour la page Non. Explique le contexte ou pose une question.",
+        choix1: "Premier choix",
+        choix2: "Deuxième choix",
+      },
+
+      pageN1a: {
+        texte: "Texte de résultat pour le choix 1. Tu peux écrire ce que tu veux ici.",
+      },
+
+      pageN1b: {
+        texte: "Texte de résultat pour le choix 2. Tu peux écrire ce que tu veux ici.",
+      },
+
+      pageO1: {
+        photo: "chatrose.gif",
+        texte: "Ton texte ici pour la page Oui. Demande à l'utilisateur de saisir quelque chose.",
+        placeholder: "Écris ici...",
+        boutonSuivant: "Suivant →",
+      },
+
+      pageO2: {
+        texte: "Dernière question avant la fin. Tu es sûr(e) de ton choix ?",
+        boutonOui: "Oui",
+        boutonNon: "Non",
+      },
+
+      pageFin: {
+        texte: "C'est noté ! Merci pour ta réponse. 💕",
+      },
+    };
+
+    // ============================================
+    // CODE - NE PAS MODIFIER EN DESSOUS
+    // ============================================
+    let donnees = { texte: "", choix: "" };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("p1-photo").src = CONFIG.page1.photo;
+      document.getElementById("p1-texte").textContent = CONFIG.page1.texte;
+      document.getElementById("p1-oui").textContent = CONFIG.page1.boutonOui;
+      document.getElementById("p1-non").textContent = CONFIG.page1.boutonNon;
+
+      document.getElementById("pN1-photo").src = CONFIG.pageN1.photo;
+      document.getElementById("pN1-texte").textContent = CONFIG.pageN1.texte;
+      document.getElementById("pN1-choix1").textContent = CONFIG.pageN1.choix1;
+      document.getElementById("pN1-choix2").textContent = CONFIG.pageN1.choix2;
+
+      document.getElementById("pN1a-texte").textContent = CONFIG.pageN1a.texte;
+      document.getElementById("pN1b-texte").textContent = CONFIG.pageN1b.texte;
+
+      document.getElementById("pO1-photo").src = CONFIG.pageO1.photo;
+      document.getElementById("pO1-texte").textContent = CONFIG.pageO1.texte;
+      document.getElementById("pO1-input").placeholder = CONFIG.pageO1.placeholder;
+      document.getElementById("pO1-suivant").textContent = CONFIG.pageO1.boutonSuivant;
+
+      document.getElementById("pO2-texte").textContent = CONFIG.pageO2.texte;
+      document.getElementById("pO2-oui").textContent = CONFIG.pageO2.boutonOui;
+      document.getElementById("pO2-non").textContent = CONFIG.pageO2.boutonNon;
+
+      document.getElementById("pFin-texte").textContent = CONFIG.pageFin.texte;
+    });
+
+    function aller(cible) {
+      const actuelle = document.querySelector(".page.active");
+      const cibleEl = document.getElementById(cible);
+      if (!cibleEl || actuelle === cibleEl) return;
+      actuelle.classList.remove("active");
+      cibleEl.classList.add("active");
+    }
+
+    function validerO1() {
+      const val = document.getElementById("pO1-input").value.trim();
+      if (!val) {
+        document.getElementById("pO1-input").style.borderColor = "#e8789e";
+        document.getElementById("pO1-input").focus();
+        return;
+      }
+      donnees.texte = val;
+      aller("pageO2");
+    }
+
+    function validerFin(choix) {
+      donnees.choix = choix;
+      envoyerDonnees();
+      aller("pageFin");
+    }
+
+    function envoyerDonnees() {
+      fetch(CONFIG.appsScriptURL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ texte: donnees.texte, choix: donnees.choix })
+      }).catch(err => console.error("Erreur envoi :", err));
+    }
+  </script>
 </body>
 </html>
