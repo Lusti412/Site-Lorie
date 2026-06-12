@@ -1,55 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Site</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mon Site</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-<div id="page1" class="page active">
-  <img>
-  <p></p>
-  <button class="yes" onclick="yes()"></button>
-  <button class="no" onclick="no()"></button>
-</div>
-
-<div id="pageNon" class="page">
-  <img>
-  <p></p>
-
-  <div class="choice">
-    <button class="c1"></button>
-    <button class="c2"></button>
-  </div>
-</div>
-
-<div id="pageOui" class="page">
-  <img>
-  <p></p>
-
-  <input id="input">
-  <button onclick="sendStep1()">Suivant</button>
-</div>
-
-<div id="step2" class="page">
-  <p id="t2"></p>
-
-  <div class="choice">
-    <button id="o1" onclick="select('A')"></button>
-    <button id="o2" onclick="select('B')"></button>
+  <!-- PAGE 1 -->
+  <div class="page active" id="page1">
+    <div class="card">
+      <img class="photo" id="p1-photo" src="" alt="" />
+      <p class="texte" id="p1-texte"></p>
+      <div class="boutons-horizontal">
+        <button class="btn btn-oui" onclick="aller('pageO1')">OUI</button>
+        <button class="btn btn-non" onclick="aller('pageN1')">NON</button>
+      </div>
+    </div>
   </div>
 
-  <button class="back" onclick="back()">← retour</button>
-</div>
+  <!-- PAGE N1 (chemin Non) -->
+  <div class="page" id="pageN1">
+    <div class="card">
+      <img class="photo" id="pN1-photo" src="" alt="" />
+      <p class="texte" id="pN1-texte"></p>
+      <div class="boutons-liste">
+        <button class="btn btn-choix" id="pN1-choix1" onclick="aller('pageN1a')"></button>
+        <button class="btn btn-choix" id="pN1-choix2" onclick="aller('pageN1b')"></button>
+      </div>
+      <button class="btn btn-retour" onclick="aller('page1')">← Revenir sur mon choix</button>
+    </div>
+  </div>
 
-<div id="final" class="page">
-  <p id="finalText"></p>
-</div>
+  <!-- PAGE N1a -->
+  <div class="page" id="pageN1a">
+    <div class="card">
+      <p class="texte" id="pN1a-texte"></p>
+      <button class="btn btn-retour" onclick="aller('pageN1')">← Revenir sur mon choix</button>
+    </div>
+  </div>
 
-<script src="config.js"></script>
-<script src="script.js"></script>
+  <!-- PAGE N1b -->
+  <div class="page" id="pageN1b">
+    <div class="card">
+      <p class="texte" id="pN1b-texte"></p>
+      <button class="btn btn-retour" onclick="aller('pageN1')">← Revenir sur mon choix</button>
+    </div>
+  </div>
 
+  <!-- PAGE O1 (chemin Oui) -->
+  <div class="page" id="pageO1">
+    <div class="card">
+      <img class="photo" id="pO1-photo" src="" alt="" />
+      <p class="texte" id="pO1-texte"></p>
+      <div class="saisie-row">
+        <input class="input-texte" id="pO1-input" type="text" />
+        <button class="btn btn-suivant" id="pO1-suivant" onclick="validerO1()"></button>
+      </div>
+      <button class="btn btn-retour" onclick="aller('page1')">← Revenir sur mon choix</button>
+    </div>
+  </div>
+
+  <!-- PAGE O2 -->
+  <div class="page" id="pageO2">
+    <div class="card">
+      <p class="texte" id="pO2-texte"></p>
+      <div class="boutons-horizontal">
+        <button class="btn btn-oui" onclick="validerFin('Oui')">OUI</button>
+        <button class="btn btn-non" onclick="validerFin('Non')">NON</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE FINALE -->
+  <div class="page" id="pageFin">
+    <div class="card">
+      <p class="texte grand" id="pFin-texte"></p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
